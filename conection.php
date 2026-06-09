@@ -1,14 +1,14 @@
 <?php
 
 try {
-
-    $host = "localhost";
-    $dbname = "dbsystem";
-    $user = "root";
-    $password = "1234";
+    $host = getenv("MYSQLHOST");
+    $dbname = getenv("MYSQLDATABASE");
+    $user = getenv("MYSQLUSER");
+    $password = getenv("MYSQLPASSWORD");
+    $port = getenv("MYSQLPORT");
 
     $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
         $user,
         $password
     );
