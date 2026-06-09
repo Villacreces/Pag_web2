@@ -13,7 +13,7 @@ echo "MYSQLPORT: ";
 var_dump(getenv("MYSQLPORT"));
 
 exit;
-
+?>
 <?php
 
 try {
