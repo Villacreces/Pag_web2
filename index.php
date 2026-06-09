@@ -1,10 +1,13 @@
 <?php
 session_start();
 
-if (empty($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php");
+if (!empty($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header("Location: dashboard.php");
     exit();
 }
+
+header("Location: login.php");
+exit();
 ?>
 
 <!DOCTYPE html>
