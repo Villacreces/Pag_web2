@@ -1,26 +1,10 @@
 <?php
-echo "<pre>";
-echo "MYSQLHOST: ";
-var_dump(getenv("MYSQLHOST"));
-
-echo "MYSQLDATABASE: ";
-var_dump(getenv("MYSQLDATABASE"));
-
-echo "MYSQLUSER: ";
-var_dump(getenv("MYSQLUSER"));
-
-echo "MYSQLPORT: ";
-var_dump(getenv("MYSQLPORT"));
-
-exit;
-?>
-<?php
 
 try {
-    $host = getenv("MYSQLHOST") ?: getenv("DB_HOST");
-    $dbname = getenv("MYSQLDATABASE") ?: getenv("DB_NAME");
-    $user = getenv("MYSQLUSER") ?: getenv("DB_USER");
-    $password = getenv("MYSQLPASSWORD") ?: getenv("DB_PASSWORD");
+    $host = getenv("MYSQLHOST");
+    $dbname = getenv("MYSQLDATABASE");
+    $user = getenv("MYSQLUSER");
+    $password = getenv("MYSQLPASSWORD");
     $port = getenv("MYSQLPORT") ?: "3306";
 
     $pdo = new PDO(
@@ -31,7 +15,6 @@ try {
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Tabla cotizaciones
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS cotizaciones (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +25,6 @@ try {
         )
     ");
 
-    // Tabla usuarios
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS usuarios (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,27 +33,26 @@ try {
         )
     ");
 
-    // Crear usuario admin si no existe ninguno
     $stmt = $pdo->query("SELECT COUNT(*) FROM usuarios");
 
     if ($stmt->fetchColumn() == 0) {
-
         $hash = password_hash("1234", PASSWORD_DEFAULT);
 
-        $stmt = $pdo->prepare(
-            "INSERT INTO usuarios (username, password)
-             VALUES (?, ?)"
-        );
+        $stmt = $pdo->prepare("
+            INSERT INTO usuarios (username, password)
+            VALUES (?, ?)
+        ");
 
-        $stmt->execute([
-            "admin",
-            $hash
-        ]);
+        $stmt->execute(["admin", $hash]);
     }
 
 } catch (PDOException $e) {
-
-    die("CONNECTION ERROR: " . $e->getMessage());
-
+    echo "<pre>";
+    echo "Host: " . ($host ?: "VACÍO") . "\n";
+    echo "DB: " . ($dbname ?: "VACÍO") . "\n";
+    echo "User: " . ($user ?: "VACÍO") . "\n";
+    echo "Port: " . ($port ?: "VACÍO") . "\n\n";
+    echo "CONNECTION ERROR: " . $e->getMessage();
+    exit;
 }
 ?>
