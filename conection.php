@@ -1,4 +1,20 @@
 <?php
+echo "<pre>";
+echo "MYSQLHOST: ";
+var_dump(getenv("MYSQLHOST"));
+
+echo "MYSQLDATABASE: ";
+var_dump(getenv("MYSQLDATABASE"));
+
+echo "MYSQLUSER: ";
+var_dump(getenv("MYSQLUSER"));
+
+echo "MYSQLPORT: ";
+var_dump(getenv("MYSQLPORT"));
+
+exit;
+
+<?php
 
 try {
     $host = getenv("MYSQLHOST") ?: getenv("DB_HOST");
