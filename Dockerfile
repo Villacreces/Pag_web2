@@ -4,6 +4,10 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 COPY . /var/www/html/
 
-CMD sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf && \
-    sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf && \
-    apache2-foreground
+RUN echo '#!/bin/sh\n\
+sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf\n\
+sed -i "s/:80/:${PORT:-80}/g" /etc/apache2/sites-available/000-default.conf\n\
+exec apache2-foreground' > /usr/local/bin/start.sh \
+    && chmod +x /usr/local/bin/start.sh
+
+CMD ["start.sh"]
