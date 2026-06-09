@@ -1,13 +1,10 @@
 <?php
 session_start();
 
-if (isset($_SESSION['admin_logged_in'])) {
-    header("Location: dashboard.php");
-} else {
+if (!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
+    exit();
 }
-
-exit();
 ?>
 
 <!DOCTYPE html>
