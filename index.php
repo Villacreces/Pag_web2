@@ -1,14 +1,15 @@
-
 <?php
+session_start();
+
 if (isset($_SESSION['admin_logged_in'])) {
     header("Location: dashboard.php");
-    exit();
-}else{
-    $error = ' ';
+} else {
+    header("Location: login.php");
 }
 
-
+exit();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
