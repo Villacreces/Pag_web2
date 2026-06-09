@@ -1,0 +1,14 @@
+.card{
+    transition: transform 0.3s ease, box-shadow 0.3 ease;
+    border: none;
+}
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.btn-primary{
+    background-color: rgb(28, 28, 165);
+    border-color: rgb(31, 31, 163);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
