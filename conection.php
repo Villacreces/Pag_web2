@@ -1,14 +1,14 @@
 <?php
 
 try {
-    $host = getenv("MYSQLHOST");
-    $dbname = getenv("MYSQLDATABASE");
-    $user = getenv("MYSQLUSER");
-    $password = getenv("MYSQLPASSWORD");
-    $port = getenv("MYSQLPORT");
+    $host = getenv("MYSQLHOST") ?: getenv("DB_HOST");
+    $dbname = getenv("MYSQLDATABASE") ?: getenv("DB_NAME");
+    $user = getenv("MYSQLUSER") ?: getenv("DB_USER");
+    $password = getenv("MYSQLPASSWORD") ?: getenv("DB_PASSWORD");
+    $port = getenv("MYSQLPORT") ?: "3306";
 
     $pdo = new PDO(
-        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
+        "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4",
         $user,
         $password
     );
