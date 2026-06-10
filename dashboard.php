@@ -49,6 +49,15 @@ $cotizaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="index.php" class="btn btn-primary btn-sm me-2">New cotization</a>
                 <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
             </div>
+            <div class="d-flex align-items-center mt-4 justyfy-content-center">
+                <a href="export_report.pdf?type=excel" class="btn btn-success btn-sm">
+                    <i class="bi bi-file-earmark-excel">Export to Excel</i>
+                </a>
+
+                <a href="export_report.pdf?type=pdf" class="btn btn-success btn-sm">
+                    <i class="bi bi-file-earmark-pdf">Export to PDF</i>
+                </a>
+            </div>
         </div>
     </nav>
     <div class="container">
