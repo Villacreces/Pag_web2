@@ -19,4 +19,19 @@ function generateName(string $prefijo, string $extension): string {
 
 //capture the type of export
 $type = $_GET['type'] ?? '';
+
+if($type ==='excel'){
+    try{
+        $stmt = $pdo->query("SELECT * FROM cotizaciones ORDER BY id DESC");
+        $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //call the function which generates the name of the file
+        $fileName = generateName("Reporte_cotizaciones", "csv");
+        header("Content-Type: text/csv; charset=utf-8");
+        header("Content-Disposition: attachment; filename={$fileName}");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+    }catch(Exception $e){
+        echo "Error al generar el reporte Excel: " . $e->getMessage();
+    }
+}
 ?>
